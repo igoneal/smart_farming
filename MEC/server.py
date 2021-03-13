@@ -53,7 +53,8 @@ class BrokerCom:
 
 def initialization():
     ip = input('Enter Broker ip: ')
-    br = BrokerCom(user='mec', pw='password', ip=ip, sub_topic='control')
+    topic = 'sensor'
+    br = BrokerCom(user='mec', pw='password', ip=ip, sub_topic=topic)
     try:
         br.broker_loop()
     except KeyboardInterrupt:

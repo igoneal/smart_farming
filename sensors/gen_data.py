@@ -56,7 +56,7 @@ class BrokerCom:
 def display_data():
     topic = 'sensor'
     ip = input('Enter Broker ip: ')
-    br = BrokerCom(user='mec', pw='password', ip=ip, sub_topic='control')
+    br = BrokerCom(user='mec', pw='password', ip=ip, sub_topic=topic)
     df = pd.read_csv('data.csv')
     for i in range(df.shape[0]):
         row = dict(df.iloc[i, :])
