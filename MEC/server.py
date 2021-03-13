@@ -29,6 +29,7 @@ class BrokerCom:
         print(f'Topic received: {msg.topic}')
         topic_recv = msg.topic
         m = pickle.loads(msg.payload)
+        print('here')
         print(m)
 
     def publish(self, topic, data):
