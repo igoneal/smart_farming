@@ -32,8 +32,9 @@ class BrokerCom:
     def on_message(self, message_client, userdata, msg):
         print(f'Topic received: {msg.topic}')
         topic_recv = msg.topic
-        m = pickle.loads(msg.payload)
-        print(m)
+        data = pickle.loads(msg.payload)
+        print(data)
+        save_data(data)
 
     def publish(self, topic, data):
         self.client.publish(topic, data)
@@ -63,6 +64,10 @@ def display_data():
         r = pickle.dumps(row)
         br.publish(topic=topic, data=r)
         time.sleep(1)
+
+
+def save_data(data):
+    pass
 
 
 if __name__ == '__main__':
