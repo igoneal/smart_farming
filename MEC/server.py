@@ -6,12 +6,6 @@ import pickle
 import mysql.connector
 
 
-# hostname = 'localhost'
-# username = 'root'
-# password = 'arebu100'
-# database = 'fl_db'
-
-
 def ip_address():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s.connect(("8.8.8.8", 80))
