@@ -54,7 +54,7 @@ class BrokerCom:
 
 
 def display_data():
-    topic = 'sensor'
+    topic = input('Enter Topic: ')
     ip = input('Enter Broker ip: ')
     br = BrokerCom(user='mec', pw='password', ip=ip, sub_topic=topic)
     df = pd.read_csv('data.csv')

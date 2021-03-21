@@ -77,7 +77,7 @@ def insert_record(moisture, rainfall, humidity, temperature, crop_yield):
 
 def initialization():
     ip = input('Enter Broker ip: ')
-    topic = 'sensor'
+    topic = input('Enter Topic: ')
     br = BrokerCom(user='mec', pw='password', ip=ip, sub_topic=topic)
     try:
         br.broker_loop()
