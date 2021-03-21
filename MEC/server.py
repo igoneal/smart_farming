@@ -1,5 +1,5 @@
 import time
-
+import os
 import paho.mqtt.client as mqtt
 import socket
 import pickle
@@ -86,4 +86,5 @@ def initialization():
 
 
 if __name__ == '__main__':
+    os.system('clear')
     initialization()

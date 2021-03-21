@@ -3,6 +3,7 @@ import time
 import paho.mqtt.client as mqtt
 import socket
 import pickle
+import os
 
 
 def ip_address():
@@ -54,6 +55,7 @@ class BrokerCom:
 
 
 def display_data():
+    os.system('clear')
     topic = input('Enter Topic: ')
     ip = input('Enter Broker ip: ')
     br = BrokerCom(user='mec', pw='password', ip=ip, sub_topic=topic)
