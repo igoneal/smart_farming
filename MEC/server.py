@@ -3,7 +3,7 @@ import os
 import paho.mqtt.client as mqtt
 import socket
 import pickle
-import mysql.connector
+import sqlite3
 
 
 def ip_address():
@@ -55,24 +55,35 @@ class BrokerCom:
         print('Broker Communication Object Deleted!')
 
 
-def insert_record(moisture, rainfall, humidity, temperature, crop_yield):
-    conn = mysql.connector.connect(host="localhost", user="root", passwd="arebu100", db="fl_db")
-    cursor = conn.cursor()
-    try:
-        query = "INSERT INTO crop_data(moisture, rainfall, humidity, temperature, crop_yield) ", \
-                "VALUES (%s,%s,%s,%s,%s)", (time.strftime("%Y-%m-%d %H:%m:%s"))
+class Yield:
+    conn = sqlite3.connect('yield.db')
+    c = conn.cursor()
+    c.execute(""" CREATE TABLE crop_data(
+        moisture, rainfall, 
+        humidity, temperature, crop_yield
+    )""")
+    conn.commit()
+    conn.close()
+    #def insert(self):
 
-        cursor.execute(query)
-        conn.commit()
+#def insert_record(moisture, rainfall, humidity, temperature, crop_yield):
+ #   conn = mysql.connector.connect(host="localhost", user="root", passwd="arebu100", db="fl_db")
+  #  cursor = conn.cursor()
+   # try:
+    #    query = "INSERT INTO crop_data(moisture, rainfall, humidity, temperature, crop_yield) ", \
+     #           "VALUES (%s,%s,%s,%s,%s)", (time.strftime("%Y-%m-%d %H:%m:%s"))
 
-    except Exception as error:
-        conn.rollback()
-        print(error)
+      #  cursor.execute(query)
+       # conn.commit()
 
-    finally:
-        cursor.close()
-        conn.close()
-    print("end of data insertion")
+    #except Exception as error:
+     #   conn.rollback()
+      #  print(error)
+
+    #finally:
+     #   cursor.close()
+      #  conn.close()
+    #print("end of data insertion")
 
 
 def initialization():
