@@ -1,4 +1,3 @@
-
 class SensorData:
     """A sample SensorData class"""
 

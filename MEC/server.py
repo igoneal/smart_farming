@@ -59,9 +59,8 @@ class Yield:
     conn = sqlite3.connect('yield.db')
     c = conn.cursor()
     c.execute(""" CREATE TABLE crop_data(
-        moisture, rainfall, 
-        humidity, temperature, crop_yield
-    )""")
+        moisture, rainfall, humidity, temperature, crop_yield
+        )""")
     conn.commit()
     conn.close()
 

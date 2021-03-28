@@ -1,9 +1,7 @@
 import sqlite3
-
 from sensors import gen_data
 
 conn = sqlite3.connect('data_sensor.db:')
-
 c = conn.cursor()
 
 c.execute("""CREATE TABLE dataTable (

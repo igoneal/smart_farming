@@ -1,4 +1,9 @@
 import syft as sy
+import torch as th
+import numpy as np
+from collections import OrderedDict
+import torch as torch
+
 duet1 = sy.join_duet(loopback=True)
 duet1.store.pandas
 duet2 = sy.join_duet(loopback=True)
@@ -8,9 +13,12 @@ data2_ptr = duet2.store[0]
 
 print(data1_ptr)
 print(data2_ptr)
-import torch
+# import torch
+
 in_dim = 1
 out_dim = 1
+
+
 class SyNet(sy.Module):
     def __init__(self, torch_ref):
         super(SyNet, self).__init__(torch_ref=torch_ref)
@@ -20,9 +28,11 @@ class SyNet(sy.Module):
         x = self.linear(x)
         return x
 
-combined_model = SyNet(torch)
-def train(iterations, model, torch_ref, optim, data_ptr, target_ptr):
 
+combined_model = SyNet(torch)
+
+
+def train(iterations, model, torch_ref, optim, data_ptr, target_ptr):
     losses = []
 
     for i in range(iterations):
@@ -52,8 +62,9 @@ def train(iterations, model, torch_ref, optim, data_ptr, target_ptr):
 
     return losses
 
-import torch as th
-import numpy as np
+
+# import torch as th
+# import numpy as np
 
 local_model1 = SyNet(torch)
 print(local_model1.parameters())
@@ -82,8 +93,9 @@ losses = train(iteration, remote_model2, remote_torch2, optim2, data2_ptr, targe
 
 # Averaging Model update
 
-from collections import OrderedDict
-## Little sanity check!
+# from collections import OrderedDict
+
+# Little sanity check!
 
 param1 = remote_model1.parameters().get(request_block=True)
 param2 = remote_model2.parameters().get(request_block=True)
@@ -111,9 +123,10 @@ remote_model2_updates = remote_model2.get(
 print(remote_model2_updates)
 avg_updates = OrderedDict()
 avg_updates["linear.weight"] = (
-    remote_model1_updates["linear.weight"] + remote_model2_updates["linear.weight"]) / 2
+          remote_model1_updates["linear.weight"] + remote_model2_updates[
+                                   "linear.weight"]) / 2
 avg_updates["linear.bias"] = (
-    remote_model1_updates["linear.bias"] + remote_model2_updates["linear.bias"]) / 2
+            remote_model1_updates["linear.bias"] + remote_model2_updates["linear.bias"]) / 2
 
 print(avg_updates)
 
@@ -133,8 +146,8 @@ with torch.no_grad():
         preds.append(y_hat)
 
 # Comparison to classical linear regression on centralised data
-import torch
-import numpy as np
+# import torch
+# import numpy as np
 
 in_dim = 1
 out_dim = 1
@@ -157,8 +170,9 @@ data = torch.FloatTensor(
 target = torch.FloatTensor(
     np.array([5, 10, 15, 22, 30, 38, 35, 40, 45, 55, 60]).reshape(-1, 1)
 )
-def classic_train(iterations, model, torch, optim, data, target, criterion):
 
+
+def classic_train(iterations, model, torch, optim, data, target, criterion):
     losses = []
 
     for i in range(iterations):
@@ -181,6 +195,8 @@ def classic_train(iterations, model, torch, optim, data, target, criterion):
         optim.step()
 
     return losses
+
+
 params = classical_model.parameters()
 optim = torch.optim.Adam(params=params, lr=0.1)
 criterion = torch.nn.MSELoss()
